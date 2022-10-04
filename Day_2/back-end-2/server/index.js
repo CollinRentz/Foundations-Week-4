@@ -13,7 +13,7 @@ const {
 } = require("./controller")
 
 app.get("/api/houses", getHouses);
-app.post("/api/houses/:id", createHouse);
+app.post("/api/houses", createHouse);
 app.put("/api/houses/:id", updateHouse);
 app.delete("/api/houses/:id", deleteHouse);
 

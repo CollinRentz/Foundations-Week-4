@@ -11,7 +11,7 @@ module.exports = {
         const dltHouse = houses.find((obj) => obj.id === Number(id));
         houses.splice(id -1, 1);
         console.log(houses);
-        res.send("House deleted.");
+        res.status(200).send(houses);
     },
     createHouse: (req, res) => {
         let crtHouse = {
@@ -32,8 +32,12 @@ module.exports = {
         if (type === "plus") {
             houses[updtIndex].price += 10000;
         } else {
-            houses[updtIndex].price -= 10000;  
-        };
-        res.status(200).send(`House price is now ${houses[updtIndex].price}`);
+            if ((houses[updtIndex].price) > 0) {
+                houses[updtIndex].price -= 10000;
+            } else {
+                houses[updtIndex].price = 0;
+            }
+        }
+        res.status(200).send(houses);
     }
 }
