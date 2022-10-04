@@ -10,4 +10,4 @@ function makeUnique(str) {
     }
     return uniqueStr
   }
-  console.log()
+  console.log(makeUnique('Hello'))
