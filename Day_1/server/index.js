@@ -1,17 +1,33 @@
-const express = require("express");
-const cors = require("cors");
-const app = express();
-app.use(express.json());
-app.use(cors());
-app.get("/api/users", (req, res) => {
-    let friends = ["Nitin", "Eric", "Jeddy", "Cameron", "Riley"];
-    res.status(200).send(friends);
-  });
-  app.get("/weather/:temperature", (req, res) => {
-    const { temperature } = req.params;
-    const phrase = `<h3>It was ${temperature} today</h3>`;
-    res.status(200).send(phrase);
-  });
+const express = require('express');
 
-app.listen(4000, () => console.log("Server running on port 4000"));
+const server = express();
+const PORT = 8000;
 
+server.use(express.json());
+
+
+
+server.get("/", (req,res) => {
+    console.log("hello");
+    res.send("hello")
+})
+const logger = (req, res, next) => {
+    console.log("i am middlewario 2");
+    req.body = {username: "poop", password: "password123"}
+    next()
+}
+server.use(logger)
+server.post("/register", (req,res) => {
+    console.log(req.body);
+    res.send(`${req.body.username} ${req.body.password}`)
+})
+server.get("/hello", (req, res) => {
+    res.send("hello")
+});
+server.get('/github/:username', function (req, res) {
+    console.log(req.params);
+    const { username } = req.params
+
+    res.send(`hello ${username}`)
+});
+server.listen(PORT, console.log(`running in the 90's but on port ${PORT}`))
